@@ -27,7 +27,7 @@ const connectDB = async () => {
     let mongoUri = process.env.MONGODB_URI;
     
     // Use in-memory database for development if no MongoDB URI provided
-    if (!mongoUri || mongoUri.includes('localhost:27017')) {
+    if (!mongoUri || (mongoUri.includes('localhost:27017') && process.env.NODE_ENV !== 'production')) {
       const { MongoMemoryServer } = require('mongodb-memory-server');
       const mongod = await MongoMemoryServer.create();
       mongoUri = mongod.getUri();
