@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { Plus, Filter, Search } from 'lucide-react';
 import axios from 'axios';
+import API_BASE_URL from '../config/api';
 import TaskList from './TaskList';
 import TaskForm from './TaskForm';
 import './Dashboard.css';
@@ -18,6 +19,8 @@ const Dashboard = () => {
   });
 
   useEffect(() => {
+    // Set axios base URL for this component
+    axios.defaults.baseURL = API_BASE_URL;
     fetchTasks();
   }, [filters.status, filters.priority]);
 
