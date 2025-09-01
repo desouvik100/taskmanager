@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { toast } from 'react-toastify';
 import { Plus, Filter, Search } from 'lucide-react';
 import axios from 'axios';
@@ -18,13 +18,7 @@ const Dashboard = () => {
     search: ''
   });
 
-  useEffect(() => {
-    // Set axios base URL for this component
-    axios.defaults.baseURL = API_BASE_URL;
-    fetchTasks();
-  }, [filters.status, filters.priority]);
-
-  const fetchTasks = async () => {
+  const fetchTasks = useCallback(async () => {
     try {
       const params = {};
       if (filters.status) params.status = filters.status;
@@ -37,7 +31,13 @@ const Dashboard = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [filters.status, filters.priority]);
+
+  useEffect(() => {
+    // Set axios base URL for this component
+    axios.defaults.baseURL = API_BASE_URL;
+    fetchTasks();
+  }, [fetchTasks]);
 
   const handleCreateTask = async (taskData) => {
     try {
