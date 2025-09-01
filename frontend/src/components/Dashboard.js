@@ -53,7 +53,7 @@ const Dashboard = () => {
   const handleUpdateTask = async (taskId, taskData) => {
     try {
       const response = await axios.put(`/api/tasks/${taskId}`, taskData);
-      setTasks(tasks.map(task => 
+      setTasks(tasks.map(task =>
         task._id === taskId ? response.data : task
       ));
       setEditingTask(null);
@@ -66,7 +66,7 @@ const Dashboard = () => {
   const handleToggleStatus = async (taskId) => {
     try {
       const response = await axios.patch(`/api/tasks/${taskId}/toggle`);
-      setTasks(tasks.map(task => 
+      setTasks(tasks.map(task =>
         task._id === taskId ? response.data : task
       ));
       toast.success('Task status updated!');
@@ -100,7 +100,7 @@ const Dashboard = () => {
     if (filters.search) {
       const searchLower = filters.search.toLowerCase();
       return task.title.toLowerCase().includes(searchLower) ||
-             task.description?.toLowerCase().includes(searchLower);
+        task.description?.toLowerCase().includes(searchLower);
     }
     return true;
   });
@@ -187,8 +187,8 @@ const Dashboard = () => {
         {(showForm || editingTask) && (
           <TaskForm
             task={editingTask}
-            onSubmit={editingTask ? 
-              (data) => handleUpdateTask(editingTask._id, data) : 
+            onSubmit={editingTask ?
+              (data) => handleUpdateTask(editingTask._id, data) :
               handleCreateTask
             }
             onCancel={() => {
